@@ -1,4 +1,4 @@
-# 頸鍊商店 choker sale
+# 頸鍊商店 choker shop
 
 專門銷售頸鍊的商店網頁，用純 HTML + CSS + JavaScript 製作 
 可連接後端資料庫
