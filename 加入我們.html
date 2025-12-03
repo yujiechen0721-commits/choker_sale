@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 全局樣式 */
+        body {
+            font-family: Bauhaus 93, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212; /* 整個頁面的底色設置為黑色 */
+            color: #fff; /* 頁面文字顏色設置為白色 */
+        }
+
+        /* 頁頭和導航列樣式 */
+        header {
+            background-color: #1c1c1c; /* 導航列背景顏色 */
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            list-style: none; /* 移除項目符號 */
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0; /* 導航按鈕文字顏色 */
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        nav ul li ul.dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333333; /* 下拉選單背景顏色 */
+            padding: 0;
+            border-radius: 4px;
+        }
+
+        nav ul li:hover ul.dropdown {
+            display: block;
+        }
+
+        nav ul li ul.dropdown li {
+            width: 200px;
+        }
+
+        nav ul li ul.dropdown li a {
+            padding: 10px;
+            border-bottom: 1px solid #444444;
+        }
+
+        nav ul li ul.dropdown li a:hover {
+            background-color: #444444;
+        }
+
+        nav ul li.nav-item > a {
+            pointer-events: none; /* 禁止主页面链接点击 */
+        }
+
+        /* 內容區域樣式 */
+        .content-section {
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .content-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* 表單樣式 */
+        .join-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .join-form input, .join-form button {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .join-form input {
+            background-color: #333333;
+            color: #fff;
+        }
+
+        .join-form button {
+            background-color: #6e97d19c;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .join-form button:hover {
+            background-color: #444444;
+        }
+        /* 頁尾樣式 */
+        footer {
+            background-color: #121212; /* 頁尾背景顏色 */
+            color: #888888; /* 頁尾文字顏色 */
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導航 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="首頁.html">Home</a></li>
+                <li><a href="購物介面.html">Shop</a></li>
+                <li><a href="join_us.html">Join us</a></li>
+                <li style="margin-left:auto;">
+                    <a href="購物車.html">
+                        <img src="購物車圖.png" alt="Cart" style="width: 35px; height: 35px;">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主要內容區域 -->
+    <main>
+        <section class="content-section">
+            <h2>Join us</h2>
+            <form class="join-form" id="joinForm">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2023 Choker Shop.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById('joinForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表單默認提交
+            const email = document.getElementById('email').value;
+
+            // 使用 Fetch API 發送 POST 請求
+            fetch('/add-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Email added successfully!');
+                } else {
+                    alert('Failed to add email.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred.');
+            });
+        });
+    </script>
+</body>
+</html>

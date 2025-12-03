@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 全局樣式 */
+        body {
+            font-family: Bauhaus 93, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212; /* 整個頁面的底色設置為黑色 */
+            color: #fff; /* 頁面文字顏色設置為白色 */
+        }
+
+        /* 頁頭和導航列樣式 */
+        header {
+            background-color: #1c1c1c; /* 導航列背景顏色 */
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            list-style: none; /* 移除項目符號 */
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0; /* 導航按鈕文字顏色 */
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        nav ul li ul.dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333333; /* 下拉選單背景顏色 */
+            padding: 0;
+            border-radius: 4px;
+        }
+
+        nav ul li:hover ul.dropdown {
+            display: block;
+        }
+
+        nav ul li ul.dropdown li {
+            width: 200px;
+        }
+
+        nav ul li ul.dropdown li a {
+            padding: 10px;
+            border-bottom: 1px solid #444444;
+        }
+
+        nav ul li ul.dropdown li a:hover {
+            background-color: #444444;
+        }
+
+        nav ul li.nav-item > a {
+            pointer-events: none; /* 禁止主页面链接点击 */
+        }
+
+        /* 大標題區域樣式 */
+        .main-title {
+            background-image: url('主頁圖.png'); /* 保持圖片路徑正確 */
+            background-size: cover;
+            background-position: center;
+            color: #ffffff; /* 大標題文字顏色 */
+            padding: 200px 20px; /* 調整內邊距來留出邊緣 */
+            margin: 20px; /* 增加外邊距來留出邊緣 */
+            border-radius: 15px; /* 可選：添加圓角效果 */
+        }
+
+        .main-title h1 {
+            font-size: 3em;
+            margin: 0;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* 內容區域樣式 */
+        .content-section {
+            padding: 50px 20px;
+        }
+
+        .content-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* 照片和說明的樣式 */
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .photo-gallery .photo-item {
+            width: 22%; /* 確保每行四張圖片 */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .photo-gallery .photo-item img {
+            width: 200px; /* 統一圖片寬度 */
+            height: 200px; /* 統一圖片高度 */
+            object-fit: cover; /* 保持圖片比例 */
+            border-radius: 10px;
+        }
+
+        .photo-gallery .photo-item h3 {
+            color: #a7a58e; /* 小標題顏色 */
+            font-size: 1.2em;
+            margin: 10px 0 5px 0;
+        }
+
+        .photo-gallery .photo-item .description {
+            display: none; /* 初始隱藏 */
+        }
+
+        .photo-gallery .photo-item .description p {
+            color: #fff; /* 內容文字顏色 */
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        .photo-gallery .photo-item .description button {
+            cursor: pointer;
+            font-size: 1em;
+            background-color: #444444;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .photo-gallery .photo-item .description button:hover {
+            background-color: #987c22;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            font-size: 1em;
+            background: none;
+            border: none;
+            color: #a7a58e; /* 修改按鈕默認顏色 */
+        }
+
+        .toggle-btn:hover {
+            color: #ff0000; /* 修改按鈕懸停時的顏色 */
+        }
+
+        /* 頁尾樣式 */
+        footer {
+            background-color: #000000; /* 頁尾背景顏色 */
+            color: #888888; /* 頁尾文字顏色 */
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 通知樣式 */
+        .notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #6c6b5b;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導航 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="首頁.html">Home</a></li>
+                <li><a href="購物介面.html">Shop</a></li>
+                <li><a href="加入我們.html">Join us</a></li>
+                <li style="margin-left:auto;">
+                    <a href="購物車.html">
+                        <img src="購物車圖.png" alt="Cart" style="width: 35px; height: 35px;">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    
+    <!-- 通知區域 -->
+    <div id="notification" class="notification">
+        The product was successfully added to your shopping cart.
+    </div>
+
+    <!-- 大標題區域 -->
+    <div class="main-title">
+        <h1></h1>
+    </div>
+
+    <!-- 主要內容區域 -->
+    <main>
+        <section class="content-section">
+            
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2023 Choker Shop. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 獲取所有的切換按鈕
+        const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+        // 為每個切換按鈕添加點擊事件監聽器
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const description = button.nextElementSibling;
+                if (description.style.display === 'none' || !description.style.display) {
+                    description.style.display = 'block';
+                    button.textContent = '△';
+                } else {
+                    description.style.display = 'none';
+                    button.textContent = '▽';
+                }
+            });
+        });
+
+        // 獲取所有的 "add to cart" 按鈕
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        const notification = document.getElementById('notification');
+
+        // 為每個 "add to cart" 按鈕添加點擊事件監聽器
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 這裡你可以添加其他加入購物車的邏輯
+                // 顯示通知
+                notification.style.display = 'block';
+                // 設置2秒後隱藏通知
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 2000);
+            });
+        });
+
+    </script>
+</body>
+</html>

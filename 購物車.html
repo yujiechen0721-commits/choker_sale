@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 全局樣式 */
+        body {
+            font-family: Bauhaus 93, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212; /* 整個頁面的底色設置為黑色 */
+            color: #fff; /* 頁面文字顏色設置為白色 */
+        }
+
+        /* 頁頭和導航列樣式 */
+        header {
+            background-color: #1c1c1c; /* 導航列背景顏色 */
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style: none; /* 移除項目符號 */
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0; /* 導航按鈕文字顏色 */
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* 內容區域樣式 */
+        .content-section {
+            padding: 50px 20px;
+        }
+
+        .content-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* 購物車項目樣式 */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 20px;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .cart-item h3 {
+            font-size: 1.2em;
+            margin: 0;
+            color: #a7a58e;
+        }
+
+        .cart-item button {
+            cursor: pointer;
+            font-size: 1em;
+            background-color: #444444;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            margin-left: auto;
+        }
+
+        .cart-item button:hover {
+            background-color: #ff0000;
+        }
+
+        /* 頁尾樣式 */
+        footer {
+            background-color: #000000; /* 頁尾背景顏色 */
+            color: #888888; /* 頁尾文字顏色 */
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 頁頭 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="首頁.html">Home</a></li>
+                <li><a href="購物介面.html">Shop</a></li>
+                <li><a href="加入我們.html">Join us</a></li>
+                <li style="margin-left:auto;">
+                    <a href="購物車.html">
+                        <img src="購物車圖.png" alt="Cart" style="width: 35px; height: 35px;">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主要內容區域 -->
+    <main>
+        <section class="content-section">
+            <h2>Shopping Cart</h2>
+            <div id="cart-items"></div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2023 Choker Shop.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 檢查本地存儲中是否有購物車數據
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        // 渲染購物車項目
+        function renderCartItems() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = ''; // 清空現有內容
+
+            cartItems.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+
+                const img = document.createElement('img');
+                img.src = item.image;
+                img.alt = item.name;
+
+                const name = document.createElement('h3');
+                name.textContent = item.name;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    removeCartItem(index);
+                });
+
+                cartItem.appendChild(img);
+                cartItem.appendChild(name);
+                cartItem.appendChild(removeButton);
+
+                cartItemsContainer.appendChild(cartItem);
+            });
+        }
+
+        // 移除購物車項目
+        function removeCartItem(index) {
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            renderCartItems();
+        }
+
+        // 初始渲染
+        renderCartItems();
+    </script>
+</body>
+</html>
